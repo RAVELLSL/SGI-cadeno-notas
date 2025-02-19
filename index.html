@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caderno de Notas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 700px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #343a40;
+      margin-bottom: 20px;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, select:focus, textarea:focus {
+      border-color: #80bdff;
+      outline: none;
+    }
+    /* Aumentada a altura do textarea */
+    textarea {
+      height: 250px;
+      resize: vertical;
+    }
+    /* Custom file input */
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    .custom-file-label {
+      display: inline-block;
+      background: #6c757d;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .custom-file-label:hover {
+      background: #5a6268;
+    }
+    /* Container para os botões lado a lado */
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .btn {
+      background: #17a2b8;
+      color: white;
+      padding: 8px;
+      border: none;
+      cursor: pointer;
+      flex: 1;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #138496;
+    }
+    /* Botão Compartilhar com estilo diferenciado */
+    .btn-compartilhar {
+      background: #28a745;
+    }
+    .btn-compartilhar:hover {
+      background: #218838;
+    }
+    #pesquisa {
+      margin-bottom: 20px;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+    }
+    .nota {
+      border: 1px solid #dee2e6;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .nota h3 {
+      margin: 0;
+      color: #17a2b8;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .nota p {
+      margin: 10px 0;
+      color: #495057;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .media-container img,
+    .media-container video,
+    .media-container audio {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .nota .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .actions button {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.3s;
+    }
+    .actions button:hover {
+      background: #c82333;
+    }
+    /* Destaque para os termos buscados */
+    mark {
+      background-color: #fffb91;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+    /* Estilização para dispositivos móveis com letras maiores */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      .btn, .actions button, #pesquisa, .custom-file-label {
+        font-size: 14px;
+        padding: 8px;
+      }
+      .nota h3 {
+        font-size: 20px;
+      }
+      .nota p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Caderno de Notas</h1>
+
+    <input type="text" id="pesquisa" placeholder="Pesquisar notas...">
+
+    <h2>Adicionar Nota</h2>
+    <div class="input-group">
+      <input type="text" id="titulo" placeholder="Título">
+      <!-- Categorias ordenadas alfabeticamente -->
+      <select id="categoria">
+        <option value="Estudos">Estudos</option>
+        <option value="Fé e Religião">Fé e Religião</option>
+        <option value="Financeiro">Financeiro</option>
+        <option value="Lazer">Lazer</option>
+        <option value="Pessoal">Pessoal</option>
+        <option value="Projetos">Projetos</option>
+        <option value="Saúde">Saúde</option>
+        <option value="Trabalho">Trabalho</option>
+      </select>
+      <textarea id="conteudo" placeholder="Escreva sua nota..."></textarea>
+      <div class="file-input-wrapper">
+        <input type="file" id="midia" accept="image/*,audio/*,video/*">
+        <label for="midia" class="custom-file-label">Escolher Arquivo</label>
+      </div>
+    </div>
+
+    <!-- Botões em grupo, lado a lado -->
+    <div class="button-group">
+      <button class="btn" id="btnSalvar">Salvar Nota</button>
+      <button class="btn btn-compartilhar" id="btnCompartilhar">Compartilhar Notas Salvas</button>
+    </div>
+
+    <h2>Notas Salvas</h2>
+    <div id="listaNotas"></div>
+  </div>
+
+  <!-- Inclusão da biblioteca html2pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // Função para escapar HTML e prevenir XSS
+    function escapeHTML(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, function(match) {
+        return ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[match]);
+      });
+    }
+
+    // Função para escapar caracteres especiais para uso em regex
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Função para destacar os termos buscados
+    function highlightText(text, tokens) {
+      let escapedText = escapeHTML(text);
+      tokens.forEach(token => {
+        let regex = new RegExp('('+escapeRegExp(token)+')', 'gi');
+        escapedText = escapedText.replace(regex, '<mark>$1</mark>');
+      });
+      return escapedText;
+    }
+
+    // Função para salvar a nota no localStorage
+    function salvarNota(nota) {
+      let notas = JSON.parse(localStorage.getItem("notas")) || [];
+      notas.push(nota);
+      localStorage.setItem("notas", JSON.stringify(notas));
+      carregarNotas();
+      limparCampos();
+    }
+
+    // Função para limpar os campos do formulário
+    function limparCampos() {
+      document.getElementById("titulo").value = "";
+      document.getElementById("conteudo").value = "";
+      document.getElementById("midia").value = "";
+    }
+
+    // Função para adicionar nota
+    function adicionarNota() {
+      let titulo = document.getElementById("titulo").value.trim();
+      let categoria = document.getElementById("categoria").value;
+      let conteudo = document.getElementById("conteudo").value.trim();
+      let midiaInput = document.getElementById("midia");
+      let file = midiaInput.files[0];
+
+      if (titulo === "" || conteudo === "") {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      let novaNota = { titulo, categoria, conteudo };
+
+      // Se houver arquivo de mídia, lê-lo e adicionar à nota
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function(event) {
+          novaNota.mediaData = event.target.result;
+          novaNota.mediaType = file.type;
+          salvarNota(novaNota);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        salvarNota(novaNota);
+      }
+    }
+
+    // Função para criar o elemento HTML da nota
+    function criarNotaHTML(nota, index) {
+      let tituloHTML = nota.tituloHighlighted || escapeHTML(nota.titulo);
+      let categoriaHTML = nota.categoriaHighlighted || escapeHTML(nota.categoria);
+      let conteudoHTML = nota.conteudoHighlighted || escapeHTML(nota.conteudo);
+      let notaDiv = document.createElement("div");
+      notaDiv.classList.add("nota");
+
+      let html = `<h3>${tituloHTML} (${categoriaHTML})</h3>`;
+      html += `<p>${conteudoHTML}</p>`;
+
+      if (nota.mediaData) {
+        html += `<div class="media-container">`;
+        if (nota.mediaType.startsWith("image/")) {
+          html += `<img src="${nota.mediaData}" alt="Mídia">`;
+        } else if (nota.mediaType.startsWith("video/")) {
+          html += `<video controls src="${nota.mediaData}"></video>`;
+        } else if (nota.mediaType.startsWith("audio/")) {
+          html += `<audio controls src="${nota.mediaData}"></audio>`;
+        }
+        html += `</div>`;
+      }
+
+      html += `<div class="actions"><button onclick="deletarNota(${index})">Deletar</button></div>`;
+      notaDiv.innerHTML = html;
+      return notaDiv;
+    }
+
+    // Função para carregar e exibir as notas
+    function carregarNotas() {
+      let listaNotas = document.getElementById("listaNotas");
+      listaNotas.innerHTML = "";
+      let notas = JSON.parse(localStorage.getItem("notas")) || [];
+      notas.forEach((nota, index) => {
+        listaNotas.appendChild(criarNotaHTML(nota, index));
+      });
+    }
+
+    // Variável para debouncing na busca
+    let searchTimeout;
+    // Função para filtrar notas com base no termo de pesquisa aprimorado
+    function filtrarNotas() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        let termo = document.getElementById("pesquisa").value.toLowerCase().trim();
+        let listaNotas = document.getElementById("listaNotas");
+        listaNotas.innerHTML = "";
+        let notas = JSON.parse(localStorage.getItem("notas")) || [];
+        if (!termo) {
+          notas.forEach((nota, index) => {
+            listaNotas.appendChild(criarNotaHTML(nota, index));
+          });
+          return;
+        }
+        let termos = termo.split(/\s+/).filter(t => t);
+        let found = false;
+        notas.forEach((nota, index) => {
+          let titulo = nota.titulo.toLowerCase();
+          let categoria = nota.categoria.toLowerCase();
+          let conteudo = nota.conteudo.toLowerCase();
+          let match = termos.every(token => titulo.includes(token) || categoria.includes(token) || conteudo.includes(token));
+          if (match) {
+            found = true;
+            let notaDestacada = { ...nota };
+            notaDestacada.tituloHighlighted = highlightText(nota.titulo, termos);
+            notaDestacada.categoriaHighlighted = highlightText(nota.categoria, termos);
+            notaDestacada.conteudoHighlighted = highlightText(nota.conteudo, termos);
+            listaNotas.appendChild(criarNotaHTML(notaDestacada, index));
+          }
+        });
+        if (!found) {
+          listaNotas.innerHTML = "<p>Nenhuma nota encontrada.</p>";
+        }
+      }, 300);
+    }
+
+    // Função para deletar uma nota
+    function deletarNota(index) {
+      let notas = JSON.parse(localStorage.getItem("notas")) || [];
+      notas.splice(index, 1);
+      localStorage.setItem("notas", JSON.stringify(notas));
+      carregarNotas();
+    }
+
+    // Função para compartilhar notas salvas em PDF
+    function compartilharNotas() {
+      const element = document.querySelector('.container');
+      const opt = {
+        margin:       0.5,
+        filename:     'notas.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    // Atribuição de eventos
+    document.getElementById("btnSalvar").addEventListener("click", adicionarNota);
+    document.getElementById("pesquisa").addEventListener("keyup", filtrarNotas);
+    document.getElementById("btnCompartilhar").addEventListener("click", compartilharNotas);
+
+    window.onload = carregarNotas;
+  </script>
+</body>
+</html>
