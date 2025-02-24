@@ -2,37 +2,106 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <!-- Responsividade -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Caderno de Notas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Caderno de Notas Futurista</title>
+  <!-- Importando fontes: Poppins para textos e Orbitron para títulos -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset básico */
+    /* ================================
+       VARIÁVEIS & RESET
+    ================================= */
+    :root {
+      --bg-main: #0d0d0d;
+      --glass-bg: rgba(20, 20, 20, 0.85);
+      --accent-color: #00ffff;
+      --secondary-accent: #ff00ff;
+      --text-color: #e0e0e0;
+      --input-border: rgba(255, 255, 255, 0.3);
+      --input-focus: #00ffff;
+      --btn-bg: #00ffff;
+      --btn-hover: #00cccc;
+      --btn-danger: #dc3545;
+      --btn-danger-hover: #c82333;
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
+    /* ================================
+       FUNDO ANIMADO FUTURISTA
+    ================================= */
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      color: var(--text-color);
+      background: var(--bg-main);
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      position: relative;
     }
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #0d0d0d, #1a1a1a);
+      background-size: 400% 400%;
+      z-index: -2;
+      animation: gradientAnim 20s ease infinite;
+    }
+    @keyframes gradientAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Overlay grid para efeito tecnológico */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+
+    /* ================================
+       CONTAINER GLASSMORPHISM
+    ================================= */
     .container {
       width: 90%;
       max-width: 700px;
-      background: #fff;
+      background: var(--glass-bg);
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin: 20px;
     }
+
     h1, h2 {
       text-align: center;
-      color: #343a40;
+      color: var(--accent-color);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 8px var(--accent-color);
       margin-bottom: 20px;
     }
+
+    /* ================================
+       INPUTS & TEXTAREA
+    ================================= */
     .input-group {
       display: flex;
       flex-direction: column;
@@ -42,21 +111,26 @@
     input[type="text"], select, textarea {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ced4da;
+      border: 1px solid var(--input-border);
       border-radius: 6px;
       font-size: 14px;
-      transition: border-color 0.3s;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
     input[type="text"]:focus, select:focus, textarea:focus {
-      border-color: #80bdff;
+      border-color: var(--input-focus);
+      box-shadow: 0 0 8px var(--input-focus);
       outline: none;
     }
-    /* Aumentada a altura do textarea */
     textarea {
       height: 250px;
       resize: vertical;
     }
-    /* Custom file input */
+
+    /* ================================
+       CUSTOM FILE INPUT
+    ================================= */
     .file-input-wrapper {
       position: relative;
       display: inline-block;
@@ -66,8 +140,8 @@
     }
     .custom-file-label {
       display: inline-block;
-      background: #6c757d;
-      color: #fff;
+      background: var(--secondary-accent);
+      color: var(--bg-main);
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
@@ -76,17 +150,20 @@
       transition: background 0.3s;
     }
     .custom-file-label:hover {
-      background: #5a6268;
+      background: #cc0099;
     }
-    /* Container para os botões lado a lado */
+
+    /* ================================
+       BOTÕES EM GRUPO
+    ================================= */
     .button-group {
       display: flex;
       gap: 10px;
       margin-bottom: 25px;
     }
     .btn {
-      background: #17a2b8;
-      color: white;
+      background: var(--btn-bg);
+      color: var(--bg-main);
       padding: 8px;
       border: none;
       cursor: pointer;
@@ -94,45 +171,59 @@
       border-radius: 6px;
       font-size: 12px;
       font-weight: 500;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
     }
     .btn:hover {
-      background: #138496;
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 0 8px var(--accent-color);
     }
-    /* Botão Compartilhar com estilo diferenciado */
     .btn-compartilhar {
       background: #28a745;
     }
     .btn-compartilhar:hover {
       background: #218838;
     }
+
+    /* ================================
+       CAMPO DE PESQUISA
+    ================================= */
     #pesquisa {
       margin-bottom: 20px;
       padding: 8px;
       font-size: 14px;
-      border: 1px solid #ced4da;
+      border: 1px solid var(--input-border);
       border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
     }
+
+    /* ================================
+       NOTAS (CARD) FUTURISTAS
+    ================================= */
     .nota {
-      border: 1px solid #dee2e6;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 15px;
       margin-bottom: 15px;
       border-radius: 8px;
-      background: #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      background: rgba(20, 20, 20, 0.9);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .nota:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 12px var(--accent-color);
     }
     .nota h3 {
       margin: 0;
-      color: #17a2b8;
+      color: var(--btn-bg);
       font-size: 18px;
       font-weight: 600;
+      font-family: 'Orbitron', sans-serif;
     }
     .nota p {
       margin: 10px 0;
-      color: #495057;
+      color: var(--text-color);
       font-size: 16px;
       line-height: 1.5;
     }
@@ -149,8 +240,8 @@
       gap: 10px;
     }
     .actions button {
-      background: #dc3545;
-      color: white;
+      background: var(--btn-danger);
+      color: var(--bg-main);
       border: none;
       padding: 4px 8px;
       border-radius: 4px;
@@ -159,15 +250,17 @@
       transition: background 0.3s;
     }
     .actions button:hover {
-      background: #c82333;
+      background: var(--btn-danger-hover);
     }
-    /* Destaque para os termos buscados */
     mark {
       background-color: #fffb91;
       padding: 0 2px;
       border-radius: 2px;
     }
-    /* Estilização para dispositivos móveis com letras maiores */
+
+    /* ================================
+       RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS
+    ================================= */
     @media (max-width: 600px) {
       .container {
         padding: 20px;
@@ -235,32 +328,26 @@
     function escapeHTML(str) {
       if (!str) return "";
       return str.replace(/[&<>"']/g, function(match) {
-        return ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        }[match]);
+        return ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"}[match]);
       });
     }
 
-    // Função para escapar caracteres especiais para uso em regex
+    // Função para escapar caracteres especiais para regex
     function escapeRegExp(string) {
       return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // Função para destacar os termos buscados
+    // Função para destacar termos buscados
     function highlightText(text, tokens) {
       let escapedText = escapeHTML(text);
       tokens.forEach(token => {
-        let regex = new RegExp('('+escapeRegExp(token)+')', 'gi');
+        let regex = new RegExp('(' + escapeRegExp(token) + ')', 'gi');
         escapedText = escapedText.replace(regex, '<mark>$1</mark>');
       });
       return escapedText;
     }
 
-    // Função para salvar a nota no localStorage
+    // Função para salvar nota no localStorage
     function salvarNota(nota) {
       let notas = JSON.parse(localStorage.getItem("notas")) || [];
       notas.push(nota);
@@ -269,7 +356,7 @@
       limparCampos();
     }
 
-    // Função para limpar os campos do formulário
+    // Função para limpar campos do formulário
     function limparCampos() {
       document.getElementById("titulo").value = "";
       document.getElementById("conteudo").value = "";
@@ -333,7 +420,7 @@
       return notaDiv;
     }
 
-    // Função para carregar e exibir as notas
+    // Função para carregar e exibir notas
     function carregarNotas() {
       let listaNotas = document.getElementById("listaNotas");
       listaNotas.innerHTML = "";
@@ -345,7 +432,7 @@
 
     // Variável para debouncing na busca
     let searchTimeout;
-    // Função para filtrar notas com base no termo de pesquisa aprimorado
+    // Função para filtrar notas com base no termo de pesquisa
     function filtrarNotas() {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
@@ -393,11 +480,11 @@
     function compartilharNotas() {
       const element = document.querySelector('.container');
       const opt = {
-        margin:       0.5,
-        filename:     'notas.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        margin: 0.5,
+        filename: 'notas.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
       };
       html2pdf().set(opt).from(element).save();
     }
