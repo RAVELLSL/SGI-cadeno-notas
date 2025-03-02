@@ -12,15 +12,15 @@
        VARIÁVEIS & RESET
     ================================= */
     :root {
-      --bg-main: #0d0d0d;
-      --glass-bg: rgba(20, 20, 20, 0.85);
-      --accent-color: #00ffff;
-      --secondary-accent: #ff00ff;
-      --text-color: #e0e0e0;
-      --input-border: rgba(255, 255, 255, 0.3);
-      --input-focus: #00ffff;
-      --btn-bg: #00ffff;
-      --btn-hover: #00cccc;
+      --bg-main: #f2f2f2; /* Fundo principal claro */
+      --glass-bg: rgba(255, 255, 255, 0.9); /* Fundo do container */
+      --accent-color: #007BFF; /* Azul para destaques */
+      --secondary-accent: #6c757d; /* Cinza para acentos secundários */
+      --text-color: #333333; /* Texto escuro para boa legibilidade */
+      --input-border: rgba(0, 0, 0, 0.2);
+      --input-focus: #007BFF;
+      --btn-bg: #007BFF;
+      --btn-hover: #0056b3;
       --btn-danger: #dc3545;
       --btn-danger-hover: #c82333;
     }
@@ -51,7 +51,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #0d0d0d, #1a1a1a);
+      background: linear-gradient(45deg, #f2f2f2, #e0e0e0, #f2f2f2, #e0e0e0);
       background-size: 400% 400%;
       z-index: -2;
       animation: gradientAnim 20s ease infinite;
@@ -70,8 +70,8 @@
       width: 100%;
       height: 100%;
       background-image: 
-        linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
-        linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+        linear-gradient(0deg, transparent 24%, rgba(0, 123, 255, 0.05) 25%, rgba(0, 123, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 123, 255, 0.05) 75%, rgba(0, 123, 255, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 123, 255, 0.05) 25%, rgba(0, 123, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 123, 255, 0.05) 75%, rgba(0, 123, 255, 0.05) 76%, transparent 77%, transparent);
       background-size: 50px 50px;
       z-index: -1;
     }
@@ -85,7 +85,7 @@
       background: var(--glass-bg);
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       margin: 20px;
@@ -114,7 +114,7 @@
       border: 1px solid var(--input-border);
       border-radius: 6px;
       font-size: 14px;
-      background: rgba(255, 255, 255, 0.1);
+      background: #fff;
       color: var(--text-color);
       transition: border-color 0.3s, box-shadow 0.3s;
     }
@@ -141,7 +141,7 @@
     .custom-file-label {
       display: inline-block;
       background: var(--secondary-accent);
-      color: var(--bg-main);
+      color: #fff;
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
@@ -150,7 +150,7 @@
       transition: background 0.3s;
     }
     .custom-file-label:hover {
-      background: #cc0099;
+      background: #5a6268;
     }
 
     /* ================================
@@ -163,7 +163,7 @@
     }
     .btn {
       background: var(--btn-bg);
-      color: var(--bg-main);
+      color: #fff;
       padding: 8px;
       border: none;
       cursor: pointer;
@@ -194,7 +194,7 @@
       font-size: 14px;
       border: 1px solid var(--input-border);
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.1);
+      background: #fff;
       color: var(--text-color);
     }
 
@@ -202,12 +202,12 @@
        NOTAS (CARD) FUTURISTAS
     ================================= */
     .nota {
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       padding: 15px;
       margin-bottom: 15px;
       border-radius: 8px;
-      background: rgba(20, 20, 20, 0.9);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .nota:hover {
@@ -241,7 +241,7 @@
     }
     .actions button {
       background: var(--btn-danger);
-      color: var(--bg-main);
+      color: #fff;
       border: none;
       padding: 4px 8px;
       border-radius: 4px;
